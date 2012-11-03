@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+function foo(response) {
+	alert("Got product catalog: " + response);
+}
+function grabProducts() {
+	var scriptTag = document.createElement("script");
+	scriptTag.src = 'http://lcboapi.com/products.js?callback=foo';
+	
+	var head = document.getElementsByTagName("head").item(0);
+    head.appendChild(scriptTag);
+    ;
+}
+</script>
+</head>
+<body>
+  <button onclick="grabProducts()">Grab products</button>
+  <div id="scriptcontainer"></div>
+</body>
+</html>

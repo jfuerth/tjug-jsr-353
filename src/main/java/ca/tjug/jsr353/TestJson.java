@@ -1,33 +1,32 @@
 package ca.tjug.jsr353;
 
-import java.util.Iterator;
+import java.net.URL;
 
-import javax.json.Json;
-import javax.json.stream.JsonParser;
-import javax.json.stream.JsonParser.Event;
-
-import org.apache.http.client.fluent.Content;
-import org.apache.http.client.fluent.Request;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 public class TestJson {
 
-    public static void main(String[] args) {
-        try {
-            Content response = Request.Get("http://lcboapi.com/products")
-                                      .execute()
-                                      .returnContent();
-            JsonParser parser = Json.createParser(response.asStream());
+  public static void main(String[] args) throws Exception {
+    URL jsonResource = TestJson.class.getResource("/lcbo_products.json");
+    JsonReader jsonReader = new JsonReader(jsonResource.openStream());
+    JsonObject root = jsonReader.readObject();
+    printLagers(root);
+    jsonReader.close();
+  }
 
-            Iterator<Event> iterator = parser.iterator();
+  private static void printLagers(JsonObject root) {
+    JsonArray result = root.getValue("result", JsonArray.class);
+    for (JsonValue itemAsValue : result.getValues()) {
+      JsonObject item = (JsonObject) itemAsValue;
+      String primaryCat = item.getStringValue("primary_category");
+      String secondaryCat = item.getStringValue("secondary_category");
 
-            while(iterator.hasNext()) {
-                Event event = iterator.next();
-                if (event == Event.VALUE_STRING) {
-                    System.out.println(parser.getString());
-                }
-            }
-        } catch (Exception e ) {
-            e.printStackTrace();
-        }
+      if ("Beer".equals(primaryCat) && "Lager".equals(secondaryCat)) {
+        System.out.println(item);
+      }
     }
+  }
 }
