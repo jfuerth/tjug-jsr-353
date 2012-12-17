@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.json.JsonArray;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
 
@@ -57,8 +58,12 @@ public class JsonReaderExamples {
       }
     }
 
-    System.out.printf(" Total units of lager beer: %12d\n", totalUnits);
-    System.out.printf("Total volume of lager beer: %12d mL\n", totalMillilitres);
+    // this is the "dom" style of writing JSON, by building an object and printing it
+    JsonObject summary = new JsonObjectBuilder()
+      .add("total_units_of_lager", totalUnits)
+      .add("total_volume_of_lager", totalMillilitres)
+      .build();
+    System.out.println(summary);
   }
 
 }

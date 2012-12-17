@@ -3,6 +3,7 @@ package ca.tjug.jsr353;
 import java.net.URL;
 
 import javax.json.Json;
+import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonParser;
 
 public class JsonParserExamples {
@@ -106,8 +107,13 @@ public class JsonParserExamples {
         break;
       }
     }
-    System.out.printf(" Total units of lager beer: %12d\n", totalLagerUnits);
-    System.out.printf("Total volume of lager beer: %12d mL\n", totalLagerVolume);
+
+    JsonGenerator generator = Json.createGenerator(System.out);
+    generator.writeStartObject()
+      .write("total_units_of_lager", totalLagerUnits)
+      .write("total_volume_of_lager", totalLagerVolume)
+      .writeEnd()
+      .flush();
   }
 
 
