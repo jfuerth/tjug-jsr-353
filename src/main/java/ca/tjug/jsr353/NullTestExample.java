@@ -13,8 +13,8 @@ import javax.json.JsonValue;
 public class NullTestExample {
 
   static class TweetCoordinatePoint {
-    private double lat;
-    private double lon;
+    private final double lat;
+    private final double lon;
     public TweetCoordinatePoint(double lat, double lon) {
       this.lat = lat;
       this.lon = lon;
@@ -52,8 +52,8 @@ public class NullTestExample {
         if ("Point".equals(coordObject.getStringValue("type"))) {
           JsonArray coordArray = coordObject.getValue("coordinates", JsonArray.class);
           coordList.add(new TweetCoordinatePoint(
-                  ((JsonNumber) coordArray.get(0)).getDoubleValue(),
-                  ((JsonNumber) coordArray.get(1)).getDoubleValue()));
+              ((JsonNumber) coordArray.get(0)).getDoubleValue(),
+              ((JsonNumber) coordArray.get(1)).getDoubleValue()));
         }
       } else {
         coordList.add(null);

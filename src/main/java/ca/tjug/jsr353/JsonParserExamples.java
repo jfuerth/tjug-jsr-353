@@ -110,10 +110,10 @@ public class JsonParserExamples {
 
     JsonGenerator generator = Json.createGenerator(System.out);
     generator.writeStartObject()
-      .write("total_units_of_lager", totalLagerUnits)
-      .write("total_volume_of_lager", totalLagerVolume)
-      .writeEnd()
-      .flush();
+    .write("total_units_of_lager", totalLagerUnits)
+    .write("total_volume_of_lager", totalLagerVolume)
+    .writeEnd()
+    .flush();
   }
 
 

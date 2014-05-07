@@ -60,9 +60,9 @@ public class JsonReaderExamples {
 
     // this is the "dom" style of writing JSON, by building an object and printing it
     JsonObject summary = new JsonObjectBuilder()
-      .add("total_units_of_lager", totalUnits)
-      .add("total_volume_of_lager", totalMillilitres)
-      .build();
+    .add("total_units_of_lager", totalUnits)
+    .add("total_volume_of_lager", totalMillilitres)
+    .build();
     System.out.println(summary);
   }
 
